@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/momo1108/markdown-grouper#readme",
   "devDependencies": {
+    "jsdom": "^23.0.0",
     "marked": "^11.0.0"
   }
 }
