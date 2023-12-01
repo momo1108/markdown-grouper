@@ -1,18 +1,26 @@
 const {parse} = require("marked");
 
 /**
- * Header 구조 출력
- * Header 구조 별 클래스 or 아이디 설정
+ * 원본 html, 스캔용 html 분리해서 사용?
+ * 객체 생성)
+ * h1 스캔 -> 발견 시 처음 끝 체크 -> 원본 위치 기억, h2 스캔용 html 생성. 
+ * 위 스캔용 html에서 h2 스캔 -> 발견 시 처음 끝 체크 -> h2 스캔용 html 원본 위치 기억, h3 스캔용 html 생성
+ * 위 스캔용 html에서 h3 스캔 -> 발견 시 처음 끝 체크 -> h3 스캔용 html 원본 위치 기억, h4 스캔용 html 생성
+ * 위 스캔용 html에서 h4 스캔 -> 발견 시 처음 끝 체크 -> h4 스캔용 html 원본 위치 기억, h5 스캔용 html 생성
+ * 위 스캔용 html에서 h5 스캔 -> 발견 시 처음 끝 체크 -> h5 스캔용 html 원본 위치 기억, h6 스캔용 html 생성
+ * 위 스캔용 html에서 h6 스캔 -> 발견 시 처음 끝 체크 -> h6 스캔용 html 원본 위치 기억
  */
 class _MarkdownHeaderStructure {
-    #h1 = 0;
-    #h2 = 0;
-    #h3 = 0;
-    #h4 = 0;
-    #h5 = 0;
-
     constructor(html) {
-        
+        const result = this.findHeader(html, 1);
+        console.log(result);
+    }
+
+    findHeader(text, level, index) {
+        const keyword = `<h${level}>`
+        const start = text.indexOf(keyword, index);
+        const end = text.indexOf(keyword, index);
+        return [start, end];
     }
 }
 
@@ -20,11 +28,7 @@ let markdown = null;
 
 exports.parseMarkdownToHtml = (markdownText) => {
     const html = parse(markdownText);
-    const template = document.createElement("template");
-    template.innerHTML = html;
-    const result = template.content.children;
-    console.log(result);
-    markdown = _MarkdownHeaderStructure(html);
+    markdown = new _MarkdownHeaderStructure(html);
 
     return html;
 }
