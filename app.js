@@ -11,11 +11,21 @@ const {parse} = require("marked");
  * 위 스캔용 html에서 h6 스캔 -> 발견 시 처음 끝 체크 -> h6 스캔용 html 원본 위치 기억
  */
 class _MarkdownHeaderStructure {
+    #h1 = 0;
+    #h2 = 0;
+    #h3 = 0;
+    #h4 = 0;
+    #h5 = 0;
+    #h6 = 0;
+
     constructor(html) {
         const result = this.findHeader(html, 1);
         console.log(result);
     }
 
+    // start는 레벨에 맞는 모든 헤더태그 찾기
+    // end는 해당 레벨 이상의 모든 태그 찾기
+    // 함수 내부에서 현재 레벨에 해당하는 모든 태그를 체크해야함. while문 사용하고 반복시마다 이전태그 다음으로 index 이동
     findHeader(text, level, index) {
         const keyword = `<h${level}>`
         const start = text.indexOf(keyword, index);
