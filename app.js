@@ -66,9 +66,9 @@ ${content}</section>`
     return text;
 }
 
-exports.parseMarkdownToGroupedHtml = (markdownText) => {
+exports.parseMarkdownToGroupedHtml = (markdownText, minLevel=1) => {
     const html = parse(markdownText);
-    const result = prettify(findHeader(html, 1, 1, ""));
+    const result = prettify(findHeader(html, minLevel, 1, ""));
 
     return result;
 }
