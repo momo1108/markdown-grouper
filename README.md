@@ -26,6 +26,28 @@ hello world
 const groupedHtml = parseToGroup(md, 1);
 ```
 
+## result
+```html
+<section id="_h1-1">
+  <h1>Title1</h1>
+  <p>lorem ipsum</p>
+  <section id="_h1-1_h2-1">
+    <h2>Subtitle1</h2>
+    <blockquote>
+      <p>test paragraph</p>
+    </blockquote>
+    <section id="_h1-1_h2-1_h3-1">
+      <h3>SubSubtitle</h3>
+      <p>qwerty</p>
+    </section>
+  </section>
+  <section id="_h1-1_h2-2">
+    <h2>Subtitle2</h2>
+    <p>hello world</p>
+  </section>
+</section>
+```
+
 ## Params
 |Param|Type|Required|Description|
 |---|---|---|---|
