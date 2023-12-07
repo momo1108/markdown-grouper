@@ -1,36 +1,23 @@
 const {parse} = require("marked");
+const prettify = require("html-prettify");
 
-/**
- * findHeader 메서드 재귀호출
- */
-class _MarkdownHeaderStructure {
-    #headerInfo = [];
+function findHeader(text, level, order, prevLabel) {
+    if(level > 6) return text;
 
-    constructor(html) {
-        const result = this.findHeader(html, 1, 0, "");
-        console.log(result);
-    }
+    const levelString = Array.from(Array(level), (_, index)=>index+1).join("");
 
-    // start는 레벨에 맞는 모든 헤더태그 찾기
-    // end는 해당 레벨 이상의 모든 태그 찾기
-    // 함수 내부에서 현재 레벨에 해당하는 모든 태그를 체크해야함. while문 사용하고 반복시마다 이전태그 다음으로 index 이동
-    findHeader(text, level, order, prevLabel) {
-        if(level > 6) return text;
-
-        const startPattern =  new RegExp(`<h${level}>.+</h${level}>`, "g")
-        const endPattern = new RegExp(`<h[${Array.from(Array(level), (_, index)=>index+1).join("")}]>`, "g");
-
-        let start = startPattern.exec(text);
-
+    try {
+        let start = new RegExp(`<h${level}>.+</h${level}>`, "g").exec(text);
+    
         // 처음 해당 레벨이 존재하는가?
         if(start){
-            let endCheck = endPattern.exec(text.slice(start.index+4));
-            let end = endCheck? endCheck.index : text.length;
+            let endCheck = new RegExp(`<h[${levelString}]>.+</h[${levelString}]>`, "g").exec(text.slice(start.index + 4));
+            let end = endCheck? start.index + endCheck.index + 4 : text.length;
         
             let textBeforeStart, textFromStartToEnd, textAfterEnd;
         
             while(start) {
-                if(order===0){
+                if(order===1){
                     textBeforeStart = text.slice(0, start.index);
                     textFromStartToEnd = text.slice(start.index, end);
                     textAfterEnd = text.slice(end);
@@ -39,44 +26,49 @@ class _MarkdownHeaderStructure {
                     textFromStartToEnd = textAfterEnd.slice(start.index, end);
                     textAfterEnd = textAfterEnd.slice(end);
                 }
+    
+                // console.log("===============", level, order, prevLabel, "================");
+                // console.log("before)\n",textBeforeStart,"\n");
+                // console.log("between)\n",textFromStartToEnd,"\n");
+                // console.log("after)\n",textAfterEnd,"\n");
+                // console.log(start);
+                // console.log(endCheck);
         
                 const curLabel = `${prevLabel}_h${level}-${order}`;
-                const content = findHeader(textFromStartToEnd, level+1, 0, curLabel);
+                const content = findHeader(textFromStartToEnd, level+1, 1, curLabel);
         
-                if(order===0){
-                    text = `${textBeforeStart}
-<section id="${curLabel}">
-${content}
-</section>`
+                if(order===1){
+                    text = `${textBeforeStart}<section id="${curLabel}">
+${content}</section>`
                 } else {
                     text = `${text}
-${textBeforeStart}
-<section id="${curLabel}">
-${content}
-</section>`
+${textBeforeStart}<section id="${curLabel}">
+${content}</section>`
                 }
         
                 order++;
-                start = startPattern.exec(textAfterEnd);
-                endCheck = endPattern.exec(textAfterEnd.slice(start+4));
+                start = new RegExp(`<h${level}>.+</h${level}>`, "g").exec(textAfterEnd);
+                endCheck = start?new RegExp(`<h[${levelString}]>.+</h[${levelString}]>`, "g").exec(textAfterEnd.slice(start.index+4)):null;
                 end = endCheck? endCheck.index : text.length;
             }
         
             text = `${text}
-${textAfterEnd}`;
+    ${textAfterEnd}`;
         } else {
-            text = findHeader(text, level+1, 0, "");
+            text = findHeader(text, level+1, 1, prevLabel);
         }
 
-        return text;
+    } catch(error){
+        console.log("%%%%%%ERROR%%%%%");
+        console.log(level, order, error);
     }
+
+    return text;
 }
 
-let markdown = null;
-
-exports.parseMarkdownToHtml = (markdownText) => {
+exports.parseMarkdownToGroupedHtml = (markdownText) => {
     const html = parse(markdownText);
-    markdown = new _MarkdownHeaderStructure(html);
+    const result = prettify(findHeader(html));
 
-    return html;
+    return result;
 }
