@@ -24,6 +24,8 @@ hello world
 `;
 
 const groupedHtml = parseToGroup(md, 1);
+
+const groupedHtmlFromFile = parseFileToGroup("./src/Hello.md", 1);
 ```
 
 ## result
@@ -49,7 +51,16 @@ const groupedHtml = parseToGroup(md, 1);
 ```
 
 ## Params
+- parseToGroup
+
 |Param|Type|Required|Description|
 |---|---|---|---|
 |markdownText|`string`|YES|Markdown text that you want to make group|
+|minLevel|`number`|NO|The smallest header number to start grouping.|
+
+- parseFileToGroup
+
+|Param|Type|Required|Description|
+|---|---|---|---|
+|markdownPath|`string`|YES|Path of Markdown file that you want to make group|
 |minLevel|`number`|NO|The smallest header number to start grouping.|

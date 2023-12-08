@@ -1,5 +1,30 @@
 const {parse} = require("marked");
 const prettify = require("html-prettify");
+const fs = require("fs");
+
+function encodeHeaderTag(markdownText){
+    for(let level = 1; level < 7; level++){
+        const startPattern = new RegExp(`<h${level}`, "g");
+        const endPattern = new RegExp(`</h${level}`, "g");
+
+        markdownText = markdownText.replaceAll(startPattern, `MDGMDGMDGHEADER${level}MDGMDGMDGSTART`);
+        markdownText = markdownText.replaceAll(endPattern, `MDGMDGMDGHEADER${level}MDGMDGMDGEND`);
+    }
+
+    return markdownText;
+}
+
+function decodeHeaderTag(markdownText){
+    for(let level = 1; level < 7; level++){
+        const startPattern = new RegExp(`MDGMDGMDGHEADER${level}MDGMDGMDGSTART`, "g");
+        const endPattern = new RegExp(`MDGMDGMDGHEADER${level}MDGMDGMDGEND`, "g");
+
+        markdownText = markdownText.replaceAll(startPattern, `&lt;h${level}`);
+        markdownText = markdownText.replaceAll(endPattern, `&lt;/h${level}`);
+    }
+
+    return markdownText;
+}
 
 function findHeader(text, level, order, prevLabel) {
     if(level > 6) return text;
@@ -58,9 +83,39 @@ ${textAfterEnd}`;
     return text;
 }
 
+/**
+ * parse Markdown Text to Grouped Html text.
+ * @param {string} markdownText text data written in markdown syntax
+ * @param {number} minLevel min level to start grouping
+ * @returns {string} html text data grouped by section tag
+ */
 exports.parseToGroup = (markdownText, minLevel=1) => {
+    markdownText = encodeHeaderTag(markdownText);
     const html = parse(markdownText);
-    const result = prettify(findHeader(html, minLevel, 1, ""));
+    const resultBeforeDecode = prettify(findHeader(html, minLevel, 1, ""));
+    const result = decodeHeaderTag(resultBeforeDecode);
 
     return result;
+}
+
+/**
+ * parse Markdown File to Grouped Html text.
+ * @param {string} markdownPath path string of markdown file
+ * @param {number} minLevel min level to start grouping
+ * @returns {string} html text data grouped by section tag
+ */
+exports.parseFileToGroup = (markdownPath, minLevel=1) => {
+    try {
+        let markdownData = fs.readFileSync(markdownPath).toString();
+        markdownData = encodeHeaderTag(markdownData);
+        const html = parse(markdownData);
+        const resultBeforeDecode = findHeader(html, minLevel, 1, "");
+        const result = decodeHeaderTag(resultBeforeDecode);
+        
+        return result;
+    } catch(error) {
+        console.error(error);
+
+        return null;
+    }
 }
