@@ -26,13 +26,6 @@ function findHeader(text, level, order, prevLabel) {
                     textFromStartToEnd = textAfterEnd.slice(start.index, end);
                     textAfterEnd = textAfterEnd.slice(end);
                 }
-    
-                // console.log("===============", level, order, prevLabel, "================");
-                // console.log("before)\n",textBeforeStart,"\n");
-                // console.log("between)\n",textFromStartToEnd,"\n");
-                // console.log("after)\n",textAfterEnd,"\n");
-                // console.log(start);
-                // console.log(endCheck);
         
                 const curLabel = `${prevLabel}_h${level}-${order}`;
                 const content = findHeader(textFromStartToEnd, level+1, 1, curLabel);
@@ -49,7 +42,7 @@ ${content}</section>`
                 order++;
                 start = new RegExp(`<h${level}>.+</h${level}>`, "g").exec(textAfterEnd);
                 endCheck = start?new RegExp(`<h[${levelString}]>.+</h[${levelString}]>`, "g").exec(textAfterEnd.slice(start.index+4)):null;
-                end = endCheck? endCheck.index : text.length;
+                end = endCheck? start.index + endCheck.index + 4 : text.length;
             }
         
             text = `${text}
