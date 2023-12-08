@@ -110,7 +110,7 @@ exports.parseFileToGroup = (markdownPath, minLevel=1) => {
         markdownData = encodeHeaderTag(markdownData);
         const html = parse(markdownData);
         const resultBeforeDecode = findHeader(html, minLevel, 1, "");
-        const result = decodeHeaderTag(resultBeforeDecode);
+        const result = prettify(decodeHeaderTag(resultBeforeDecode));
         
         return result;
     } catch(error) {
