@@ -9,7 +9,6 @@ function findHeader(text, level, order, prevLabel) {
     try {
         let start = new RegExp(`<h${level}>.+</h${level}>`, "g").exec(text);
     
-        // 처음 해당 레벨이 존재하는가?
         if(start){
             let endCheck = new RegExp(`<h[${levelString}]>.+</h[${levelString}]>`, "g").exec(text.slice(start.index + 4));
             let end = endCheck? start.index + endCheck.index + 4 : text.length;
@@ -42,11 +41,11 @@ ${content}</section>`
                 order++;
                 start = new RegExp(`<h${level}>.+</h${level}>`, "g").exec(textAfterEnd);
                 endCheck = start?new RegExp(`<h[${levelString}]>.+</h[${levelString}]>`, "g").exec(textAfterEnd.slice(start.index+4)):null;
-                end = endCheck? start.index + endCheck.index + 4 : text.length;
+                end = endCheck? start.index + endCheck.index + 4 : textAfterEnd.length;
             }
         
             text = `${text}
-    ${textAfterEnd}`;
+${textAfterEnd}`;
         } else {
             text = findHeader(text, level+1, 1, prevLabel);
         }
