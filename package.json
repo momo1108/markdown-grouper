@@ -20,7 +20,7 @@
     "url": "https://github.com/momo1108/markdown-grouper/issues"
   },
   "homepage": "https://github.com/momo1108/markdown-grouper#readme",
-  "devDependencies": {
+  "dependencies": {
     "html-prettify": "^1.0.7",
     "marked": "^11.0.0"
   }
