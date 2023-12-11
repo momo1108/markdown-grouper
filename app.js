@@ -1,5 +1,6 @@
 const {parse} = require("marked");
-const prettify = require("html-prettify");
+const prettify = require("@liquify/prettify");
+
 const fs = require("fs");
 
 function encodeHeaderTag(markdownText){
@@ -52,7 +53,7 @@ function findHeader(text, level, order, prevLabel, selector, prefix, postfix) {
                 }
         
                 const curLabel = `${prevLabel}${prefix}h${level}${postfix}${order}`;
-                const content = findHeader(textFromStartToEnd, level+1, 1, curLabel);
+                const content = findHeader(textFromStartToEnd, level+1, 1, curLabel, selector, prefix, postfix);
         
                 if(order===1){
                     text = `${textBeforeStart}<section ${selector}="${curLabel}">
@@ -72,7 +73,7 @@ ${content}</section>`
             text = `${text}
 ${textAfterEnd}`;
         } else {
-            text = findHeader(text, level+1, 1, prevLabel);
+            text = findHeader(text, level+1, 1, prevLabel, selector, prefix, postfix);
         }
 
     } catch(error){
@@ -100,7 +101,10 @@ exports.parseToGroup = (markdownText, minLevel=1, selector="id", prefix="_", pos
 
     markdownText = encodeHeaderTag(markdownText);
     const html = parse(markdownText);
-    const resultBeforeDecode = prettify(findHeader(html, minLevel, 1, "", selector, prefix, postfix));
+    const resultBeforeDecode = prettify.formatSync(findHeader(html, minLevel, 1, "", selector, prefix, postfix), {
+        language: 'html',
+        indentSize: 2
+      });
     const result = decodeHeaderTag(resultBeforeDecode);
 
     return result;
@@ -124,7 +128,10 @@ exports.parseFileToGroup = (markdownPath, minLevel=1, selector="id", prefix="_",
     markdownData = encodeHeaderTag(markdownData);
     const html = parse(markdownData);
     const resultBeforeDecode = findHeader(html, minLevel, 1, "", selector, prefix, postfix);
-    const result = prettify(decodeHeaderTag(resultBeforeDecode));
+    const result = prettify.formatSync(decodeHeaderTag(resultBeforeDecode), {
+        language: 'html',
+        indentSize: 2
+      });
     
     return result;
 }
