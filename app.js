@@ -26,7 +26,7 @@ function decodeHeaderTag(markdownText){
     return markdownText;
 }
 
-function findHeader(text, level, order, prevLabel) {
+function findHeader(text, level, order, prevLabel, selector, prefix, postfix) {
     if(level > 6) return text;
 
     const levelString = Array.from(Array(level), (_, index)=>index+1).join("");
@@ -51,15 +51,15 @@ function findHeader(text, level, order, prevLabel) {
                     textAfterEnd = textAfterEnd.slice(end);
                 }
         
-                const curLabel = `${prevLabel}_h${level}-${order}`;
+                const curLabel = `${prevLabel}${prefix}h${level}${postfix}${order}`;
                 const content = findHeader(textFromStartToEnd, level+1, 1, curLabel);
         
                 if(order===1){
-                    text = `${textBeforeStart}<section id="${curLabel}">
+                    text = `${textBeforeStart}<section ${selector}="${curLabel}">
 ${content}</section>`
                 } else {
                     text = `${text}
-${textBeforeStart}<section id="${curLabel}">
+${textBeforeStart}<section ${selector}="${curLabel}">
 ${content}</section>`
                 }
         
@@ -87,12 +87,20 @@ ${textAfterEnd}`;
  * parse Markdown Text to Grouped Html text.
  * @param {string} markdownText text data written in markdown syntax
  * @param {number} minLevel min level to start grouping
+ * @param {string} selector Selector that you want to use between id and class.(Possible values - All upper or lower cases of "class" and "id")
+ * @param {string} prefix prefix string of class or id.( "_" -> \<section class="_h1-1"> )
+ * @param {string} postfix postfix string of class or id.( "--" -> \<section class="_h1--1"> )
  * @returns {string} html text data grouped by section tag
  */
-exports.parseToGroup = (markdownText, minLevel=1) => {
+exports.parseToGroup = (markdownText, minLevel=1, selector="id", prefix="_", postfix="-") => {
+    selector = selector.toLowerCase();
+    if(!["id", "class"].includes(selector.toLowerCase())) {
+        throw new Error(`"${selector}" is invalid name for a selector.`);
+    }
+
     markdownText = encodeHeaderTag(markdownText);
     const html = parse(markdownText);
-    const resultBeforeDecode = prettify(findHeader(html, minLevel, 1, ""));
+    const resultBeforeDecode = prettify(findHeader(html, minLevel, 1, "", selector, prefix, postfix));
     const result = decodeHeaderTag(resultBeforeDecode);
 
     return result;
@@ -102,20 +110,21 @@ exports.parseToGroup = (markdownText, minLevel=1) => {
  * parse Markdown File to Grouped Html text.
  * @param {string} markdownPath path string of markdown file
  * @param {number} minLevel min level to start grouping
+ * @param {string} selector Selector that you want to use between id and class.(Possible values - All upper or lower cases of "class" and "id")
+ * @param {string} prefix prefix string of class or id.( "_" -> \<section class="_h1-1"> )
+ * @param {string} postfix postfix string of class or id.( "--" -> \<section class="_h1--1"> )
  * @returns {string} html text data grouped by section tag
  */
-exports.parseFileToGroup = (markdownPath, minLevel=1) => {
-    try {
-        let markdownData = fs.readFileSync(markdownPath).toString();
-        markdownData = encodeHeaderTag(markdownData);
-        const html = parse(markdownData);
-        const resultBeforeDecode = findHeader(html, minLevel, 1, "");
-        const result = prettify(decodeHeaderTag(resultBeforeDecode));
-        
-        return result;
-    } catch(error) {
-        console.error(error);
-
-        return null;
+exports.parseFileToGroup = (markdownPath, minLevel=1, selector="id", prefix="_", postfix="-") => {
+    selector = selector.toLowerCase();
+    if(!["id", "class"].includes(selector)) {
+        throw new Error(`"${selector}" is invalid name for a selector.`);
     }
+    let markdownData = fs.readFileSync(markdownPath).toString();
+    markdownData = encodeHeaderTag(markdownData);
+    const html = parse(markdownData);
+    const resultBeforeDecode = findHeader(html, minLevel, 1, "", selector, prefix, postfix);
+    const result = prettify(decodeHeaderTag(resultBeforeDecode));
+    
+    return result;
 }
