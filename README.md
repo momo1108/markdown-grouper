@@ -7,7 +7,7 @@ You can set class or id for each group, so you can customize css or etc for each
 
 ## Usage
 ```js
-const { parseToGroup } = require("markdown-grouper")
+const { parseToGroup, parseFileToGroup } = require("markdown-grouper")
 
 const md = `
 # Title1
@@ -57,6 +57,9 @@ const groupedHtmlFromFile = parseFileToGroup("./src/Hello.md", 1);
 |---|---|---|---|
 |markdownText|`string`|YES|Markdown text that you want to make group|
 |minLevel|`number`|NO|The smallest header number to start grouping.|
+|selector|`string`|NO|Selector that you want to use between id and class.<br>(Possible values - All upper or lower cases of "class" and "id")|
+|prefix|`string`|NO|prefix string of class or id.( "_" -> \<section class="_h1-1"> )|
+|postfix|`string`|NO|postfix string of class or id.( "--" -> \<section class="_h1--1"> )|
 
 - parseFileToGroup
 
@@ -64,3 +67,6 @@ const groupedHtmlFromFile = parseFileToGroup("./src/Hello.md", 1);
 |---|---|---|---|
 |markdownPath|`string`|YES|Path of Markdown file that you want to make group|
 |minLevel|`number`|NO|The smallest header number to start grouping.|
+|selector|`string`|NO|Selector that you want to use between id and class.<br>(Possible values - All upper or lower cases of "class" and "id")|
+|prefix|`string`|NO|prefix string of class or id.( "_" -> \<section class="_h1-1"> )|
+|postfix|`string`|NO|postfix string of class or id.( "--" -> \<section class="_h1--1"> )|
