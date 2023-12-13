@@ -5,8 +5,14 @@
   "main": "./lib/main.js",
   "exports": {
     ".": {
-      "require": "./lib/main.js",
-      "import": "./lib/main.mjs"
+      "require": {
+        "default": "./lib/main.js",
+        "types": "./lib/main.d.ts"
+      },
+      "import": {
+        "default": "./lib/main.mjs",
+        "types": "./lib/main.d.mts"
+      }
     }
   },
   "scripts": {
