@@ -56,7 +56,7 @@ const groupedHtmlFromFile = parseFileToGroup("./src/Hello.md", 1);
 |Param|Type|Required|Description|
 |---|---|---|---|
 |markdownText|`string`|**YES**|Markdown text that you want to make group|
-|minLevel|`1|2|3|4|5|6`|*NO*|The smallest header number to start grouping.|
+|minLevel|`1\|2\|3\|4\|5\|6`|*NO*|The smallest header number to start grouping.|
 |selector|`string`|*NO*|Selector that you want to use between id and class.<br>(Possible values - All upper or lower cases of "class" and "id")|
 |prefix|`string`|*NO*|prefix string of class or id.<br>( "_" -> \<section class="_h1-1"> )|
 |postfix|`string`|*NO*|postfix string of class or id.<br>( "--" -> \<section class="_h1--1"> )|
@@ -66,7 +66,7 @@ const groupedHtmlFromFile = parseFileToGroup("./src/Hello.md", 1);
 |Param|Type|Required|Description|
 |---|---|---|---|
 |markdownPath|`string`|**YES**|Path of Markdown file that you want to make group|
-|minLevel|`1|2|3|4|5|6`|*NO*|The smallest header number to start grouping.|
+|minLevel|`1\|2\|3\|4\|5\|6`|*NO*|The smallest header number to start grouping.|
 |selector|`string`|*NO*|Selector that you want to use between id and class.<br>(Possible values - All upper or lower cases of "class" and "id")|
 |prefix|`string`|*NO*|prefix string of class or id.<br>( "_" -> \<section class="_h1-1"> )|
 |postfix|`string`|*NO*|postfix string of class or id.<br>( "--" -> \<section class="_h1--1"> )|
