@@ -55,18 +55,18 @@ const groupedHtmlFromFile = parseFileToGroup("./src/Hello.md", 1);
 
 |Param|Type|Required|Description|
 |---|---|---|---|
-|markdownText|`string`|YES|Markdown text that you want to make group|
-|minLevel|`number`|NO|The smallest header number to start grouping.|
-|selector|`string`|NO|Selector that you want to use between id and class.<br>(Possible values - All upper or lower cases of "class" and "id")|
-|prefix|`string`|NO|prefix string of class or id.( "_" -> \<section class="_h1-1"> )|
-|postfix|`string`|NO|postfix string of class or id.( "--" -> \<section class="_h1--1"> )|
+|markdownText|`string`|**YES**|Markdown text that you want to make group|
+|minLevel|`number`|*NO*|The smallest header number to start grouping.|
+|selector|`string`|*NO*|Selector that you want to use between id and class.<br>(Possible values - All upper or lower cases of "class" and "id")|
+|prefix|`string`|*NO*|prefix string of class or id.<br>( "_" -> \<section class="_h1-1"> )|
+|postfix|`string`|*NO*|postfix string of class or id.<br>( "--" -> \<section class="_h1--1"> )|
 
 - parseFileToGroup
 
 |Param|Type|Required|Description|
 |---|---|---|---|
-|markdownPath|`string`|YES|Path of Markdown file that you want to make group|
-|minLevel|`number`|NO|The smallest header number to start grouping.|
-|selector|`string`|NO|Selector that you want to use between id and class.<br>(Possible values - All upper or lower cases of "class" and "id")|
-|prefix|`string`|NO|prefix string of class or id.( "_" -> \<section class="_h1-1"> )|
-|postfix|`string`|NO|postfix string of class or id.( "--" -> \<section class="_h1--1"> )|
+|markdownPath|`string`|**YES**|Path of Markdown file that you want to make group|
+|minLevel|`number`|*NO*|The smallest header number to start grouping.|
+|selector|`string`|*NO*|Selector that you want to use between id and class.<br>(Possible values - All upper or lower cases of "class" and "id")|
+|prefix|`string`|*NO*|prefix string of class or id.<br>( "_" -> \<section class="_h1-1"> )|
+|postfix|`string`|*NO*|postfix string of class or id.<br>( "--" -> \<section class="_h1--1"> )|

@@ -2,7 +2,13 @@
   "name": "markdown-grouper",
   "version": "1.1.1",
   "description": "package for grouping html parsed from markdown. This package uses header for grouping. You can set class or id for each group, so you can customize css or etc for each group.",
-  "main": "app.js",
+  "main": "./lib/main.js",
+  "exports": {
+    ".": {
+      "require": "./lib/main.js",
+      "import": "./lib/main.mjs"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
