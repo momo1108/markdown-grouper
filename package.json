@@ -16,7 +16,8 @@
     }
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "uglify": "uglifyjs ./lib/main.js ./lib/main.mjs -o ./output/main.js"
   },
   "repository": {
     "type": "git",
@@ -35,5 +36,10 @@
   "dependencies": {
     "@liquify/prettify": "^0.5.5-beta.1",
     "marked": "^11.0.0"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-javascript-obfuscator": "^1.1.6",
+    "gulp-uglify": "^3.0.2"
   }
 }
