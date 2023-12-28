@@ -7,10 +7,10 @@ You can set class or id for each group, so you can customize css or etc for each
 
 ## Functions
 ### Available functions
-#### parseToGroup
+#### 🔹parseToGroup
 parse markdown text to grouped html text.
 
-#### parseFileToGroup
+#### 🔹parseFileToGroup
 parse markdown file to grouped html text.
 
 ### Usage
@@ -61,7 +61,7 @@ console.log(groupedHtml);
 ```
 
 ### Params
-#### parseToGroup
+#### 🔹parseToGroup
 
 |Param|Type|Required|Description|
 |---|---|---|---|
@@ -71,7 +71,7 @@ console.log(groupedHtml);
 |prefix|`string`|*NO*|prefix string of class or id.<br>( "_" -> \<section class="_h1-1"> )|
 |postfix|`string`|*NO*|postfix string of class or id.<br>( "--" -> \<section class="_h1--1"> )|
 
-#### parseFileToGroup
+#### 🔹parseFileToGroup
 
 |Param|Type|Required|Description|
 |---|---|---|---|
@@ -87,10 +87,10 @@ console.log(groupedHtml);
 ### Description
 You can import two below.
 
-#### markdownDoc
+#### 🔹markdownDoc
 Instance of Class `MarkdownDocument`. Automatically initialized when you use `parseToGroup` or `parseFileToGroup` function.
 
-#### MarkdownDocument
+#### 🔹MarkdownDocument
 Class that contains information about markdown text of file. You can create Instance with empty constuctor and initialize it with `setDocument` method. You can use two properties and two methods.
 
 ##### Properties and Methods
@@ -99,6 +99,7 @@ Class that contains information about markdown text of file. You can create Inst
 
 ##### Methods
 - `setDocument` : Set the value of MarkdownDocument. Use this method first after create instance. Then you can use other properties and methods.
+
 |Param|Type|Required|Description|
 |---|---|---|---|
 |isPath|`boolean`|**YES**|`true` if you want to use markdown file, `false` to use markdown text|
