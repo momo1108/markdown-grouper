@@ -132,10 +132,16 @@ hello world
 `;
 
 const groupedHtml = parseToGroup(md, 1);
+console.log(groupedHtml);
 
 console.log(markdownDoc.html);
-
 markdownDoc.showHeaderTree();
+
+const markdownDoc2 = new MarkdownDocument();
+markdownDoc2.setDocument(false, md);
+
+console.log(markdownDoc2.html);
+markdownDoc2.showHeaderTree();
 ```
 
 ### result
@@ -159,6 +165,51 @@ markdownDoc.showHeaderTree();
   </section>
 </section>
 
+<section id="_h1-1">
+  <h1>Title1</h1>
+  <p>lorem ipsum</p>
+  <section id="_h1-1_h2-1">
+    <h2>Subtitle1</h2>
+    <blockquote>
+      <p>test paragraph</p>
+    </blockquote>
+    <section id="_h1-1_h2-1_h3-1">
+      <h3>SubSubtitle</h3>
+      <p>qwerty</p>
+    </section>
+  </section>
+  <section id="_h1-1_h2-2">
+    <h2>Subtitle2</h2>
+    <p>hello world</p>
+  </section>
+</section>
+
+<h1>Title1</h1>
+  ├<h2>Subtitle1</h2>
+  │  └<h3>SubSubtitle</h3>
+  └<h2>Subtitle2</h2>
+
+
+
+
+<section id="_h1-1">
+  <h1>Title1</h1>
+  <p>lorem ipsum</p>
+  <section id="_h1-1_h2-1">
+    <h2>Subtitle1</h2>
+    <blockquote>
+      <p>test paragraph</p>
+    </blockquote>
+    <section id="_h1-1_h2-1_h3-1">
+      <h3>SubSubtitle</h3>
+      <p>qwerty</p>
+    </section>
+  </section>
+  <section id="_h1-1_h2-2">
+    <h2>Subtitle2</h2>
+    <p>hello world</p>
+  </section>
+</section>
 
 <h1>Title1</h1>
   ├<h2>Subtitle1</h2>
