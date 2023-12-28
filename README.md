@@ -81,7 +81,11 @@ console.log(groupedHtml);
 |prefix|`string`|*NO*|prefix string of class or id.<br>( "_" -> \<section class="_h1-1"> )|
 |postfix|`string`|*NO*|postfix string of class or id.<br>( "--" -> \<section class="_h1--1"> )|
 
+<br>
+<br>
 ---
+<br>
+<br>
 
 ## Class
 ### Description
