@@ -34,16 +34,17 @@ declare class MarkdownDocument {
 
     /**
      * set the content of markdown document instead of constructor
-     * @param markdownText text data written in markdown syntax
-     * @param minLevel min level to start grouping
-     * @param order smallest number of header tag that you want to start grouping.(1 -> from h1 to h6, 2 -> from h2 to h6, ...)
-     * @param prevLabel starting text of class or id of header tag
-     * @param selector selector that you want to use between id and class.(Possible values - All upper or lower cases of "class" and "id")
-     * @param prefix prefix string of class or id.( "_" -> \<section class="_h1-1"> )
-     * @param postfix postfix string of class or id.( "--" -> \<section class="_h1--1"> )
+     * @param isPath `true` if you want to use markdown file, `false` to use markdown text
+     * @param markdownText Path of markdown file or string of markdown text
+     * @param minLevel The smallest header number to start grouping. Default value is `1`
+     * @param order Smallest number of header tag that you want to start grouping. Default value is `1`(1 -> from h1 to h6, 2 -> from h2 to h6, ...)
+     * @param prevLabel Starting text of class or id of header tag. Default value is `""`
+     * @param selector Selector that you want to use between id and class. Default value is `"id"`<br>(Possible values - All upper or lower cases of "class" and "id")
+     * @param prefix Prefix string of class or id. Default value is `"_"`<br>( "_" -> \<section class="_h1-1"> )
+     * @param postfix Postfix string of class or id. Default value is `"-"`<br>( "--" -> \<section class="_h1--1"> )
      * @returns void
      */
-    public setDocument: (markdownText:string, minLevel?:1|2|3|4|5|6, order?:number, prevLabel?:string, selector?:string, prefix?:string, postfix?:string) => void;
+    public setDocument: (isPath:boolean, markdownText:string, minLevel?:1|2|3|4|5|6, order?:number, prevLabel?:string, selector?:string, prefix?:string, postfix?:string) => void;
 
     /**
      * print and return the string of tree structure made from header.

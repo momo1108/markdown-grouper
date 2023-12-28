@@ -5,7 +5,15 @@ This package uses header for grouping.
 
 You can set class or id for each group, so you can customize css or etc for each group.
 
-## Usage
+## Functions
+### Available functions
+#### parseToGroup
+parse markdown text to grouped html text.
+
+#### parseFileToGroup
+parse markdown file to grouped html text.
+
+### Usage
 ```js
 const { parseToGroup, parseFileToGroup } = require("markdown-grouper")
 
@@ -26,9 +34,11 @@ hello world
 const groupedHtml = parseToGroup(md, 1);
 
 const groupedHtmlFromFile = parseFileToGroup("./src/Hello.md", 1);
+
+console.log(groupedHtml);
 ```
 
-## result
+### result
 ```html
 <section id="_h1-1">
   <h1>Title1</h1>
@@ -50,8 +60,8 @@ const groupedHtmlFromFile = parseFileToGroup("./src/Hello.md", 1);
 </section>
 ```
 
-## Params
-- parseToGroup
+### Params
+#### parseToGroup
 
 |Param|Type|Required|Description|
 |---|---|---|---|
@@ -61,7 +71,7 @@ const groupedHtmlFromFile = parseFileToGroup("./src/Hello.md", 1);
 |prefix|`string`|*NO*|prefix string of class or id.<br>( "_" -> \<section class="_h1-1"> )|
 |postfix|`string`|*NO*|postfix string of class or id.<br>( "--" -> \<section class="_h1--1"> )|
 
-- parseFileToGroup
+#### parseFileToGroup
 
 |Param|Type|Required|Description|
 |---|---|---|---|
@@ -70,3 +80,87 @@ const groupedHtmlFromFile = parseFileToGroup("./src/Hello.md", 1);
 |selector|`string`|*NO*|Selector that you want to use between id and class.<br>(Possible values - All upper or lower cases of "class" and "id")|
 |prefix|`string`|*NO*|prefix string of class or id.<br>( "_" -> \<section class="_h1-1"> )|
 |postfix|`string`|*NO*|postfix string of class or id.<br>( "--" -> \<section class="_h1--1"> )|
+
+---
+
+## Class
+### Description
+You can import two below.
+
+#### markdownDoc
+Instance of Class `MarkdownDocument`. Automatically initialized when you use `parseToGroup` or `parseFileToGroup` function.
+
+#### MarkdownDocument
+Class that contains information about markdown text of file. You can create Instance with empty constuctor and initialize it with `setDocument` method. You can use two properties and two methods.
+
+##### Properties and Methods
+- `markdown` : string from original markdown text or file.
+- `html` : string result of grouped html from markdown text or file.
+
+##### Methods
+- `setDocument` : Set the value of MarkdownDocument. Use this method first after create instance. Then you can use other properties and methods.
+|Param|Type|Required|Description|
+|---|---|---|---|
+|isPath|`boolean`|**YES**|`true` if you want to use markdown file, `false` to use markdown text|
+|markdownText|`string`|**YES**|Path of markdown file or string of markdown text|
+|minLevel|`1\|2\|3\|4\|5\|6`|*NO*|The smallest header number to start grouping. Default value is `1`|
+|order|`number`|*NO*|Smallest number of header tag that you want to start grouping. Default value is `1`(1 -> from h1 to h6, 2 -> from h2 to h6, ...)|
+|prevLabel|`string`|*NO*|Starting text of class or id of header tag. Default value is `""`|
+|selector|`string`|*NO*|Selector that you want to use between id and class. Default value is `"id"`<br>(Possible values - All upper or lower cases of "class" and "id")|
+|prefix|`string`|*NO*|Prefix string of class or id. Default value is `"_"`<br>( "_" -> \<section class="_h1-1"> )|
+|postfix|`string`|*NO*|Postfix string of class or id. Default value is `"-"`<br>( "--" -> \<section class="_h1--1"> )|
+
+- `showHeaderTree` : Print and return the string of header structure in a tree form.
+
+### Usage
+```js
+const { parseToGroup, markdownDoc, MarkdownDocument } = require("markdown-grouper")
+
+const md = `
+# Title1
+lorem ipsum
+
+## Subtitle1
+> test paragraph
+
+### SubSubtitle
+qwerty
+
+## Subtitle2
+hello world
+`;
+
+const groupedHtml = parseToGroup(md, 1);
+
+console.log(markdownDoc.html);
+
+markdownDoc.showHeaderTree();
+```
+
+### result
+```html
+<section id="_h1-1">
+  <h1>Title1</h1>
+  <p>lorem ipsum</p>
+  <section id="_h1-1_h2-1">
+    <h2>Subtitle1</h2>
+    <blockquote>
+      <p>test paragraph</p>
+    </blockquote>
+    <section id="_h1-1_h2-1_h3-1">
+      <h3>SubSubtitle</h3>
+      <p>qwerty</p>
+    </section>
+  </section>
+  <section id="_h1-1_h2-2">
+    <h2>Subtitle2</h2>
+    <p>hello world</p>
+  </section>
+</section>
+
+
+<h1>Title1</h1>
+  ├<h2>Subtitle1</h2>
+  │  └<h3>SubSubtitle</h3>
+  └<h2>Subtitle2</h2>
+```
