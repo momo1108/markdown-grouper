@@ -42,9 +42,10 @@ declare class MarkdownDocument {
      * @param selector Selector that you want to use between id and class. Default value is `"id"`<br>(Possible values - All upper or lower cases of "class" and "id")
      * @param prefix Prefix string of class or id. Default value is `"_"`<br>( "_" -> \<section class="_h1-1"> )
      * @param postfix Postfix string of class or id. Default value is `"-"`<br>( "--" -> \<section class="_h1--1"> )
+     * @param cli cli flag
      * @returns void
      */
-    public setDocument: (isPath:boolean, markdownText:string, minLevel?:1|2|3|4|5|6, order?:number, prevLabel?:string, selector?:string, prefix?:string, postfix?:string) => void;
+    public setDocument: (isPath:boolean, markdownText:string, minLevel?:1|2|3|4|5|6, order?:number, prevLabel?:string, selector?:string, prefix?:string, postfix?:string, cli?:boolean) => void;
 
     /**
      * print and return the string of tree structure made from header.
