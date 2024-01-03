@@ -5,6 +5,20 @@ This package uses header for grouping.
 
 You can set class or id for each group, so you can customize css or etc for each group.
 
+## Installation
+For use as a module:
+
+```bash
+npm install markdown-grouper
+```
+
+For use as a command line app:
+
+```bash
+npm install markdown-grouper -g
+```
+
+# Module Usage
 ## Functions
 ### Available functions
 #### 🔹parseToGroup
@@ -221,4 +235,67 @@ markdownDoc2.showHeaderTree();
   ├<h2>Subtitle1</h2>
   │  └<h3>SubSubtitle</h3>
   └<h2>Subtitle2</h2>
+```
+
+<br>
+<br>
+<br>
+<br>
+
+---
+
+<br>
+<br>
+<br>
+<br>
+
+# CLI Usage
+## Basic Usage
+```
+Usage: mdg [options] [command]
+
+CLI parse markdown file into html grouped with <section> tag based on header.
+
+Options:
+  -V, --version           output the version number
+  -h, --help              display help for command
+
+Commands:
+  parse [options] <path>  Parse a markdown file into html grouped with <section> tag based on header.
+  tree <path>             Show a tree structure of markdown file based on header.
+  help [command]          display help for command
+```
+
+## Commands
+### parse
+Parse a markdown file into html grouped with `<section>` tag based on header.
+
+You can save the result with `-s` and `-p` options.
+
+```
+Usage: mdg parse [options] <path>
+
+Arguments:
+  path               Path to your markdown file.
+                     ex) ./posts/hello.md
+
+Options:
+  -s, --save         Use if you want to save result. Don't use if you want to print result.
+  -p, --path <path>  Path to save html file that is parsed from markdown file.
+                     You should use this with save option(-s, --save).
+  -h, --help         display help for command
+```
+
+### tree
+Show a tree structure of markdown file based on header.
+
+```
+Usage: mdg tree [options] <path>
+
+Arguments:
+  path        Path to your markdown file.
+              ex) ./posts/hello.md
+
+Options:
+  -h, --help  display help for command
 ```
