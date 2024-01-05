@@ -113,7 +113,7 @@ Instance of Class `MarkdownDocument`. Automatically initialized when you use `pa
 #### 🔹MarkdownDocument
 Class that contains information about markdown text of file. You can create Instance with empty constuctor and initialize it with `setDocument` method. You can use two properties and two methods.
 
-##### Properties and Methods
+##### Properties
 - `markdown` : string from original markdown text or file.
 - `html` : string result of grouped html from markdown text or file.
 
@@ -274,6 +274,7 @@ You can save the result with `-s` and `-p` options.
 
 ```
 Usage: mdg parse [options] <path>
+Example: mdg parse ./test.md -s -p ./src/result.html
 
 Arguments:
   path               Path to your markdown file.
@@ -291,6 +292,7 @@ Show a tree structure of markdown file based on header.
 
 ```
 Usage: mdg tree [options] <path>
+Example: mdg tree ./test.md
 
 Arguments:
   path        Path to your markdown file.
