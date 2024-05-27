@@ -81,6 +81,7 @@ console.log(groupedHtml);
 |---|---|---|---|
 |markdownText|`string`|**YES**|Markdown text that you want to make group|
 |minLevel|`1\|2\|3\|4\|5\|6`|*NO*|The smallest header number to start grouping.|
+|maxLevel|`1\|2\|3\|4\|5\|6`|*NO*|The largest header number to start grouping.|
 |selector|`string`|*NO*|Selector that you want to use between id and class.<br>(Possible values - All upper or lower cases of "class" and "id")|
 |prefix|`string`|*NO*|prefix string of class or id.<br>( "_" -> \<section class="_h1-1"> )|
 |postfix|`string`|*NO*|postfix string of class or id.<br>( "--" -> \<section class="_h1--1"> )|
@@ -91,6 +92,7 @@ console.log(groupedHtml);
 |---|---|---|---|
 |markdownPath|`string`|**YES**|Path of Markdown file that you want to make group|
 |minLevel|`1\|2\|3\|4\|5\|6`|*NO*|The smallest header number to start grouping.|
+|maxLevel|`1\|2\|3\|4\|5\|6`|*NO*|The largest header number to start grouping.|
 |selector|`string`|*NO*|Selector that you want to use between id and class.<br>(Possible values - All upper or lower cases of "class" and "id")|
 |prefix|`string`|*NO*|prefix string of class or id.<br>( "_" -> \<section class="_h1-1"> )|
 |postfix|`string`|*NO*|postfix string of class or id.<br>( "--" -> \<section class="_h1--1"> )|
@@ -125,6 +127,7 @@ Class that contains information about markdown text of file. You can create Inst
 |isPath|`boolean`|**YES**|`true` if you want to use markdown file, `false` to use markdown text|
 |markdownText|`string`|**YES**|Path of markdown file or string of markdown text|
 |minLevel|`1\|2\|3\|4\|5\|6`|*NO*|The smallest header number to start grouping. Default value is `1`|
+|maxLevel|`1\|2\|3\|4\|5\|6`|*NO*|The largest header number to start grouping.|
 |order|`number`|*NO*|Smallest number of header tag that you want to start grouping. Default value is `1`(1 -> from h1 to h6, 2 -> from h2 to h6, ...)|
 |prevLabel|`string`|*NO*|Starting text of class or id of header tag. Default value is `""`|
 |selector|`string`|*NO*|Selector that you want to use between id and class. Default value is `"id"`<br>(Possible values - All upper or lower cases of "class" and "id")|
